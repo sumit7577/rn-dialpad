@@ -4194,9 +4194,9 @@ react-is@^16.13.1:
 react-is@^17.0.1:
   version "17.0.2"
 
-"react-native-rn-dialpad@file:../rn-dialpad":
+"react-native-react-dialpad@file:../react-dialpad":
   version "0.1.0"
-  resolved "file:../rn-dialpad"
+  resolved "file:../react-dialpad"
 
 react-native@*, react-native@0.75.4:
   version "0.75.4"
