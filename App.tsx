@@ -13,8 +13,7 @@ const { height, width } = Dimensions.get("window")
 
 export default function App() {
   useEffect(() => {
-    DialPadHelper.setDefault()
-
+    DialPadHelper.requestRole()
   }, [])
   return (
     <SafeAreaView style={{ flex: 1 }}>
