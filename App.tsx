@@ -1,19 +1,21 @@
 import { View, Text, ViewProps, HostComponent, SafeAreaView, StyleSheet, Dimensions, NativeModules } from 'react-native'
 import React, { useEffect } from 'react'
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
+import { CallManager } from './modules';
 
 interface NativeProps extends ViewProps {
   color?: string;
 }
 
-//const NativeView = codegenNativeComponent<NativeProps>('ReactDialpadView') as HostComponent<NativeProps>;
-const { DialPadHelper } = NativeModules;
 
 const { height, width } = Dimensions.get("window")
 
 export default function App() {
   useEffect(() => {
-    DialPadHelper.requestRole()
+    CallManager.setDefaultDialer()
+    setTimeout(() => {
+      CallManager.callUser("+919117517898")
+    }, 1000)
   }, [])
   return (
     <SafeAreaView style={{ flex: 1 }}>
