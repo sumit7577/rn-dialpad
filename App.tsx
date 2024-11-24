@@ -1,7 +1,6 @@
-import { View, Text, ViewProps, HostComponent, SafeAreaView, StyleSheet, Dimensions, NativeModules } from 'react-native'
+import { View, Text, ViewProps, HostComponent, SafeAreaView, StyleSheet, Dimensions, NativeModules, Button } from 'react-native'
 import React, { useEffect } from 'react'
-import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
-import { CallManager } from './modules';
+import { CallManager, MessageManager } from './modules';
 
 interface NativeProps extends ViewProps {
   color?: string;
@@ -13,15 +12,28 @@ const { height, width } = Dimensions.get("window")
 export default function App() {
   useEffect(() => {
     CallManager.setDefaultDialer()
-    setTimeout(() => {
-      CallManager.callUser("+919117517898")
-    }, 1000)
   }, [])
+
+  const getMessages = () => {
+    MessageManager.getAllMessages().then(data => console.log("data", data))
+      .catch(error => { console.log("error", error) }
+      )
+  }
+
+  const makeCall = () => {
+    CallManager.callUser("121")
+  }
+  const makeCall2 = () => {
+    CallManager.callUser("141")
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View>
         <Text>Make Default Dialer App</Text>
         {/*<NativeView color="#32a852" style={styles.nativeView} />*/}
+        <Button title="Call Me" onPress={getMessages} />
+        <Button title="Call Me 2" onPress={makeCall2} />
       </View>
 
     </SafeAreaView>

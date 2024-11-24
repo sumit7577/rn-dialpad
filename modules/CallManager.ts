@@ -1,7 +1,6 @@
 import { NativeModules } from "react-native";
 
 
-
 const { DialPadHelper } = NativeModules;
 
 /**
@@ -20,6 +19,6 @@ export const setDefaultDialer = () => {
  * @example
  * CallManager.CallUser("+9191191119111")
  */
-export async function callUser(phoneNumber: string) {
+export async function callUser(phoneNumber: string):Promise<string> {
     return await DialPadHelper.makeCall(phoneNumber)
 } 
