@@ -11,7 +11,9 @@ const { height, width } = Dimensions.get("window")
 
 export default function App() {
   useEffect(() => {
-    CallManager.setDefaultDialer()
+    //CallManager.setDefaultDialer()
+    MessageManager.setDefaultMessage().then(data=>{console.log("data",data)})
+    .catch(error=>{console.log("error",error)})
   }, [])
 
   const getMessages = () => {
@@ -23,6 +25,7 @@ export default function App() {
   const makeCall = () => {
     CallManager.callUser("121")
   }
+
   const makeCall2 = () => {
     CallManager.callUser("141")
   }

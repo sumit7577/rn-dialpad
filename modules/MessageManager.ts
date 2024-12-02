@@ -16,18 +16,34 @@ const MessagerModule = isTurboModuleEnabled
 const Messager = MessagerModule
   ? MessagerModule
   : new Proxy(
-      {},
-      {
-        get() {
-          throw new Error(LINKING_ERROR);
-        },
-      }
-    );
+    {},
+    {
+      get() {
+        throw new Error(LINKING_ERROR);
+      },
+    }
+  );
 
 export function multiply(a: number, b: number): Promise<number> {
   return Messager.multiply(a, b);
 }
 
-export function getAllMessages():Promise<String>{
-    return Messager.getAllMessages()
+export function getAllMessages(): Promise<Array<{
+  body: string;
+  type: number;
+  date: number;
+  read: boolean;
+  threadId: number;
+  isMMS: boolean;
+  senderPhoneNumber: string;
+  senderName: string;
+  senderPhotoUri: string;
+  subscriptionId: number;
+  isScheduled: boolean;
+}>> {
+  return Messager.getAllMessages()
+}
+
+export function setDefaultMessage(): Promise<String> {
+  return Messager.requestMessageRole()
 }

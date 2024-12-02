@@ -16,6 +16,7 @@ export interface Spec extends TurboModule {
     subscriptionId: number;
     isScheduled: boolean;
   }>>;
+  requestMessageRole():Promise<String>
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('Messager');
