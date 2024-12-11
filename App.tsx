@@ -12,14 +12,20 @@ const { height, width } = Dimensions.get("window")
 export default function App() {
   useEffect(() => {
     //CallManager.setDefaultDialer()
-    MessageManager.setDefaultMessage().then(data=>{console.log("data",data)})
-    .catch(error=>{console.log("error",error)})
+    MessageManager.setDefaultMessage().then(data => { console.log("data", data) })
+      .catch(error => { console.log("error", error) })
   }, [])
 
   const getMessages = () => {
     MessageManager.getAllMessages().then(data => console.log("data", data))
       .catch(error => { console.log("error", error) }
       )
+  }
+
+  const sendMessage = () => {
+    MessageManager.sendSmsMessage("hi brother", ["+918709881007"], 0, false).then((data) => {
+      console.log("data", data)
+    }).catch((error) => { console.log("error", error) })
   }
 
   const makeCall = () => {
@@ -36,7 +42,7 @@ export default function App() {
         <Text>Make Default Dialer App</Text>
         {/*<NativeView color="#32a852" style={styles.nativeView} />*/}
         <Button title="Call Me" onPress={getMessages} />
-        <Button title="Call Me 2" onPress={makeCall2} />
+        <Button title="Call Me 2" onPress={sendMessage} />
       </View>
 
     </SafeAreaView>

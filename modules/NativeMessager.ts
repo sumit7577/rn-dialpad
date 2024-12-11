@@ -1,6 +1,7 @@
 import type { TurboModule } from 'react-native';
 import { TurboModuleRegistry } from 'react-native';
 
+
 export interface Spec extends TurboModule {
   multiply(a: number, b: number): Promise<number>;
   getAllMessages(): Promise<Array<{
@@ -16,7 +17,13 @@ export interface Spec extends TurboModule {
     subscriptionId: number;
     isScheduled: boolean;
   }>>;
-  requestMessageRole():Promise<String>
+  requestMessageRole(): Promise<String>;
+  sendSmsMessage(
+    text: string,
+    addresses: string[],
+    subId: number,
+    requireDeliveryReport: boolean
+  ): Promise<string>
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('Messager');

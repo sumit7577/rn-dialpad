@@ -44,6 +44,13 @@ export function getAllMessages(): Promise<Array<{
   return Messager.getAllMessages()
 }
 
-export function setDefaultMessage(): Promise<String> {
+export function setDefaultMessage(): Promise<string> {
   return Messager.requestMessageRole()
+}
+
+export function sendSmsMessage(text: string,
+  addresses: string[],
+  subId: number,
+  requireDeliveryReport: boolean): Promise<string> {
+  return Messager.sendSmsMessage(text, addresses, subId, requireDeliveryReport)
 }
