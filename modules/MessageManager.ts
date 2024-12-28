@@ -1,4 +1,4 @@
-import { NativeModules, Platform } from 'react-native';
+import { NativeEventEmitter, NativeModules, Platform } from 'react-native';
 
 
 const LINKING_ERROR =
@@ -23,6 +23,9 @@ const Messager = MessagerModule
       },
     }
   );
+
+
+export const messageEvents = new NativeEventEmitter(Messager)
 
 export function multiply(a: number, b: number): Promise<number> {
   return Messager.multiply(a, b);

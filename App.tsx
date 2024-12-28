@@ -11,9 +11,16 @@ const { height, width } = Dimensions.get("window")
 
 export default function App() {
   useEffect(() => {
-    //CallManager.setDefaultDialer()
+    CallManager.setDefaultDialer()
     MessageManager.setDefaultMessage().then(data => { console.log("data", data) })
       .catch(error => { console.log("error", error) })
+
+    MessageManager.messageEvents.addListener("onSmsReceived",(data)=>{
+      console.log(data,"data")
+    })
+    return ()=>{
+      MessageManager.messageEvents.removeAllListeners("onSmsReceived")
+    }
   }, [])
 
   const getMessages = () => {
