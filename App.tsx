@@ -15,16 +15,16 @@ export default function App() {
     MessageManager.setDefaultMessage().then(data => { console.log("data", data) })
       .catch(error => { console.log("error", error) })
 
-    MessageManager.messageEvents.addListener("onSmsReceived",(data)=>{
+    /*MessageManager.messageEvents.addListener("onSmsReceived",(data)=>{
       console.log(data,"data")
-    })
+    })*/
     return ()=>{
-      MessageManager.messageEvents.removeAllListeners("onSmsReceived")
+      /*MessageManager.messageEvents.removeAllListeners("onSmsReceived")*/
     }
   }, [])
 
   const getMessages = () => {
-    MessageManager.getAllMessages().then(data => console.log("data", data))
+    MessageManager.getAllMessages(47).then(data => console.log("data", data[0]))
       .catch(error => { console.log("error", error) }
       )
   }
