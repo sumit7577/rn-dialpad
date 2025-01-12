@@ -1,6 +1,7 @@
 import { View, Text, ViewProps, HostComponent, SafeAreaView, StyleSheet, Dimensions, NativeModules, Button } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CallManager, MessageManager } from './modules';
+import { Messages } from './modules/MessageManager';
 
 interface NativeProps extends ViewProps {
   color?: string;
@@ -18,13 +19,16 @@ export default function App() {
     /*MessageManager.messageEvents.addListener("onSmsReceived",(data)=>{
       console.log(data,"data")
     })*/
-    return ()=>{
+    return () => {
       /*MessageManager.messageEvents.removeAllListeners("onSmsReceived")*/
     }
   }, [])
 
   const getMessages = () => {
-    MessageManager.getAllMessages(47).then(data => console.log("data", data[0]))
+    MessageManager.getAllMessages(null).then(data => {
+      const messsages: Messages[][] = JSON.parse(data)
+      console.log("data", messsages.length, messsages[0])
+    })
       .catch(error => { console.log("error", error) }
       )
   }

@@ -31,7 +31,7 @@ export function multiply(a: number, b: number): Promise<number> {
   return Messager.multiply(a, b);
 }
 
-export function getAllMessages(threadId: number | null): Promise<Array<{
+export type Messages = {
   body: string;
   type: number;
   date: number;
@@ -43,7 +43,9 @@ export function getAllMessages(threadId: number | null): Promise<Array<{
   senderPhotoUri: string;
   subscriptionId: number;
   isScheduled: boolean;
-}>> {
+}
+
+export function getAllMessages(threadId: number | null): Promise<string> {
   return Messager.getAllMessages(threadId)
 }
 
