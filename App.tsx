@@ -16,11 +16,16 @@ export default function App() {
     MessageManager.setDefaultMessage().then(data => { console.log("data", data) })
       .catch(error => { console.log("error", error) })
 
-    /*MessageManager.messageEvents.addListener("onSmsReceived",(data)=>{
-      console.log(data,"data")
-    })*/
+    MessageManager.messageEvents.addListener("onSmsReceived", (data) => {
+      console.log(data, "data")
+    })
+
+    MessageManager.messageEvents.addListener("onNotificationClick", (data) => {
+      console.log(data, "notificationCLick data")
+    })
     return () => {
-      /*MessageManager.messageEvents.removeAllListeners("onSmsReceived")*/
+      MessageManager.messageEvents.removeAllListeners("onSmsReceived")
+      MessageManager.messageEvents.removeAllListeners("onNotificationClick")
     }
   }, [])
 
