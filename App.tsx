@@ -23,9 +23,19 @@ export default function App() {
     MessageManager.messageEvents.addListener("onNotificationClick", (data) => {
       console.log(data, "notificationCLick data")
     })
+
+    CallManager.callEvents.addListener("MissedCall",(data)=>{
+      console.log("call data missed",data)
+    })
+
+    CallManager.callEvents.addListener("RejectedCall",(data)=>{
+      console.log("call data rejected",data)
+    })
     return () => {
       MessageManager.messageEvents.removeAllListeners("onSmsReceived")
       MessageManager.messageEvents.removeAllListeners("onNotificationClick")
+      CallManager.callEvents.removeAllListeners("MissedCall")
+      CallManager.callEvents.removeAllListeners("RejectedCall")
     }
   }, [])
 

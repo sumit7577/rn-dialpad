@@ -1,7 +1,9 @@
-import { NativeModules } from "react-native";
+import { NativeEventEmitter, NativeModules } from "react-native";
 
 
 const { DialPadHelper } = NativeModules;
+
+export const callEvents = new NativeEventEmitter(DialPadHelper)
 
 /**
  * Native function to set your app to default caller app
