@@ -40,7 +40,7 @@ export default function App() {
   }, [])
 
   const getMessages = () => {
-    MessageManager.getAllMessages(null).then(data => {
+    MessageManager.getAllMessages(null,20,0).then(data => {
       const messsages: Messages[][] = JSON.parse(data)
       console.log("data", messsages.length, messsages[0])
     })
@@ -59,7 +59,7 @@ export default function App() {
   }
 
   const makeCall2 = () => {
-    CallManager.callUser("141")
+    CallManager.callUser("198")
   }
 
   return (
@@ -68,7 +68,7 @@ export default function App() {
         <Text>Make Default Dialer App</Text>
         {/*<NativeView color="#32a852" style={styles.nativeView} />*/}
         <Button title="Call Me" onPress={getMessages} />
-        <Button title="Call Me 2" onPress={sendMessage} />
+        <Button title="Call Me 2" onPress={makeCall2} />
       </View>
 
     </SafeAreaView>

@@ -45,7 +45,7 @@ export type Messages = {
   isScheduled: boolean;
 }
 
-export function getAllMessages(threadId: number | null): Promise<string> {
+export function getAllMessages(threadId: number | null,limit:number,offset:number): Promise<string> {
   return Messager.getAllMessages(threadId)
 }
 
