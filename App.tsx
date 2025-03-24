@@ -24,12 +24,12 @@ export default function App() {
       console.log(data, "notificationCLick data")
     })
 
-    CallManager.callEvents.addListener("MissedCall",(data)=>{
-      console.log("call data missed",data)
+    CallManager.callEvents.addListener("MissedCall", (data) => {
+      console.log("call data missed", data)
     })
 
-    CallManager.callEvents.addListener("RejectedCall",(data)=>{
-      console.log("call data rejected",data)
+    CallManager.callEvents.addListener("RejectedCall", (data) => {
+      console.log("call data rejected", data)
     })
     return () => {
       MessageManager.messageEvents.removeAllListeners("onSmsReceived")
@@ -40,7 +40,7 @@ export default function App() {
   }, [])
 
   const getMessages = () => {
-    MessageManager.getAllMessages(null,20,0).then(data => {
+    MessageManager.getAllMessages(null, 20, 0).then(data => {
       const messsages: Messages[][] = JSON.parse(data)
       console.log("data", messsages.length, messsages[0])
     })
@@ -62,13 +62,23 @@ export default function App() {
     CallManager.callUser("198")
   }
 
+  const enableVibration = () => {
+    CallManager.toggleVibration(true).then(data => { console.log("data", data) }
+    ).catch(error => { console.log("error", error) })
+  }
+
+  const getVibrationStatus = () => {
+    CallManager.getVibrationStatus().then(data => { console.log("data", data) }
+    ).catch(error => { console.log("error", error) })
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View>
         <Text>Make Default Dialer App</Text>
         {/*<NativeView color="#32a852" style={styles.nativeView} />*/}
-        <Button title="Call Me" onPress={getMessages} />
-        <Button title="Call Me 2" onPress={makeCall2} />
+        <Button title="Call Me" onPress={enableVibration} />
+        <Button title="Call Me 2" onPress={getVibrationStatus} />
       </View>
 
     </SafeAreaView>
