@@ -21,9 +21,27 @@ export const setDefaultDialer = () => {
  * @example
  * CallManager.CallUser("+9191191119111")
  */
-export async function callUser(phoneNumber: string): Promise<string> {
+export async function callUser(phoneNumber: string):  Promise<string> {
     return await DialPadHelper.makeCall(phoneNumber)
 }
+
+/**
+ * Native function to toggle vibration for incoming calls.
+ * @example
+ * CallManager.toggleVibration(true);
+ */
+export const toggleVibration = (value: boolean): Promise<string> => {
+    return DialPadHelper.toggleVibration(value);
+};
+
+/**
+ * Native function to get the current vibration status for incoming calls.
+ * @example
+ * CallManager.getVibrationStatus();
+ */
+export const getVibrationStatus = (): Promise<boolean> => {
+    return DialPadHelper.getVibrationStatus();
+};
 
 /**
  * Type definition for call forwarding parameters.

@@ -98,6 +98,18 @@ export default function App() {
     CallManager.callUser("198")
   }
 
+  const toggleVibration = () => {
+    CallManager.toggleVibration(true).then((data) => {
+      console.log("data", data)
+    }).catch((error) => { console.log("error", error) })
+  }
+
+  const getVibrationStatus = () => {
+    CallManager.getVibrationStatus().then((data) => {
+      console.log("data", data)
+    } ).catch((error) => { console.log("error", error) })
+  }
+
   const renderItem = ({ item }: { item: Contact }) => (
     <TouchableOpacity onPress={() => {
       item.emailAddresses.push({
