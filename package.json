@@ -12,6 +12,7 @@
   "dependencies": {
     "react": "18.3.1",
     "react-native": "0.75.4",
+    "react-native-contacts": "^8.0.4",
     "react-native-messager": "file:../react-native-messager",
     "react-native-react-dialpad": "file:../react-native-dialpad"
   },
