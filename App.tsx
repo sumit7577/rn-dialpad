@@ -110,6 +110,26 @@ export default function App() {
     } ).catch((error) => { console.log("error", error) })
   }
 
+  const forwardCalls = () => {
+    //true for disable false for enable
+    CallManager.forwardAllCalls({ cfi: false, phoneNumber: "+918709881007" }).then((data) => {
+      console.log("data", data)
+    }).catch((error) => { console.log("error", error) })
+  }
+
+  const getCallReplies = ()=>{
+    CallManager.getCallReplies().then((data) => {
+      console.log("data", data)
+    }).catch((error) => { console.log("error", error) })
+  }
+
+  const addReplies = ()=>{
+    CallManager.saveCallReplies("heeijhj").then((data) => {  
+      console.log("data", data)
+    }
+    ).catch((error) => { console.log("error", error) })
+  }
+
   const renderItem = ({ item }: { item: Contact }) => (
     <TouchableOpacity onPress={() => {
       item.emailAddresses.push({
@@ -137,15 +157,14 @@ export default function App() {
       <View>
         <Text>Make Default Dialer App</Text>
         {/*<NativeView color="#32a852" style={styles.nativeView} />*/}
-        <Button title="Call Me" onPress={getMessages} />
-        <Button title="Call Me 2" onPress={makeCall2} />
+        <Button title="Call Me" onPress={getCallReplies} />
+        <Button title="Call Me 2" onPress={addReplies} />
         <FlatList
           data={contacts}
           keyExtractor={(item) => item.recordID}
           renderItem={renderItem}
         />
       </View>
-
     </SafeAreaView>
   )
 }

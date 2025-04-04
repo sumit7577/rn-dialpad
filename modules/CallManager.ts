@@ -21,7 +21,7 @@ export const setDefaultDialer = () => {
  * @example
  * CallManager.CallUser("+9191191119111")
  */
-export async function callUser(phoneNumber: string):  Promise<string> {
+export async function callUser(phoneNumber: string): Promise<string> {
     return await DialPadHelper.makeCall(phoneNumber)
 }
 
@@ -68,4 +68,12 @@ export type ForwardCallParams = {
  */
 export async function forwardAllCalls(params: ForwardCallParams): Promise<string> {
     return await DialPadHelper.forwardAllCalls(params.cfi, params.phoneNumber);
+}
+
+export async function getCallReplies(): Promise<string[]> {
+    return await DialPadHelper.getReplies();
+}
+
+export async function saveCallReplies(replies: string): Promise<void> {
+    return await DialPadHelper.saveReplies(replies);
 }
