@@ -77,3 +77,34 @@ export async function getCallReplies(): Promise<string[]> {
 export async function saveCallReplies(replies: string): Promise<void> {
     return await DialPadHelper.saveReplies(replies);
 }
+
+/**
+ * A contact entry fetched from the native address book.
+ */
+export interface PhoneNumber {
+    value: string;
+    type: number; // e.g., mobile, home, work, etc.
+    label: string; // custom label if type is custom
+    normalizedNumber: string;
+    isPrimary: boolean;
+}
+
+export interface SimpleContact {
+    rawId: number;
+    contactId: number;
+    name: string;
+    photoUri: string;
+    phoneNumbers: PhoneNumber[];
+    birthdays: string[];        // format may vary (e.g., "1990-01-01")
+    anniversaries: string[];    // format may vary (e.g., "2015-06-25")
+}
+
+/**
+ * Fetches all contacts from the native address book.
+ *
+ * @returns {Promise<Contact[]>} A promise that resolves to an array of contacts.
+ * @throws {Error} If the native method fails or permissions are denied.
+ */
+export async function getAllContacts(): Promise<SimpleContact[]> {
+    return await DialPadHelper.getAllContacts();
+}

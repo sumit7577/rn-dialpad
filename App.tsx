@@ -38,13 +38,13 @@ export default function App() {
   };
 
   const fetchContacts = () => {
-    Contacts.getAll()
-      .then((contacts) => {
-        setContacts(contacts);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    CallManager.getAllContacts().then((data) => {
+      console.log("data", data)
+    }
+    ).catch((error) => {
+      console.log("error", error)
+    }
+    )
   };
   useEffect(() => {
     requestContactsPermissions();
