@@ -108,3 +108,82 @@ export interface SimpleContact {
 export async function getAllContacts(): Promise<SimpleContact[]> {
     return await DialPadHelper.getAllContacts();
 }
+
+export type PhoneNumberContact = {
+    value: string;
+    type: number;
+    label: string;
+    normalizedNumber: string;
+    isPrimary?: boolean; // Optional since default is false in Kotlin
+};
+
+export type Email = {
+    value: string;
+    type: number;
+    label: string;
+};
+
+export type Address = {
+    value: string;
+    type: number;
+    label: string;
+};
+
+export type Event = {
+    value: string;
+    type: number;
+    label: string;
+};
+
+export type Group = {
+    id: number;
+    title: string;
+};
+
+export type Organization = {
+    company: string;
+    title: string;
+};
+
+export type IM = {
+    value: string;
+    type: number;
+    label: string;
+};
+
+export type Contact = {
+    id: number;
+    prefix?: string;
+    firstName?: string;
+    middleName?: string;
+    surname?: string;
+    suffix?: string;
+    nickname?: string;
+    photoUri?: string;
+    thumbnailUri?: string;
+    photo?: string | null; // Bitmap on Android, URI/base64 here
+    phoneNumbers?: PhoneNumber[];
+    emails?: Email[];
+    addresses?: Address[];
+    events?: Event[];
+    source?: string;
+    starred?: number;
+    contactId: number;
+    notes?: string;
+    groups?: Group[];
+    organization?: Organization;
+    websites?: string[];
+    IMs?: IM[];
+    mimetype?: string;
+    ringtone?: string | null;
+    rawId?: number;
+    name?: string;
+    birthdays?: string[];
+    anniversaries?: string[];
+};
+
+export async function createNewContact(
+    contact: Contact
+): Promise<string> {
+    return await DialPadHelper.createNewContact(contact);
+}

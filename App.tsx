@@ -2,9 +2,6 @@ import { View, Text, ViewProps, HostComponent, SafeAreaView, StyleSheet, Dimensi
 import React, { useEffect, useState } from 'react'
 import { CallManager, MessageManager } from './modules';
 import { Messages } from './modules/MessageManager';
-import Contacts from 'react-native-contacts';
-import { PermissionsAndroid } from 'react-native';
-import { Contact } from 'react-native-contacts/type';
 
 interface NativeProps extends ViewProps {
   color?: string;
@@ -14,28 +11,6 @@ interface NativeProps extends ViewProps {
 const { height, width } = Dimensions.get("window")
 
 export default function App() {
-  const [contacts, setContacts] = useState<Contact[]>([]);
-
-  const requestContactsPermissions = async () => {
-    try {
-      const granted = await PermissionsAndroid.requestMultiple([
-        PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
-        PermissionsAndroid.PERMISSIONS.WRITE_CONTACTS,
-      ]);
-
-      if (
-        granted[PermissionsAndroid.PERMISSIONS.READ_CONTACTS] === PermissionsAndroid.RESULTS.GRANTED &&
-        granted[PermissionsAndroid.PERMISSIONS.WRITE_CONTACTS] === PermissionsAndroid.RESULTS.GRANTED
-      ) {
-        console.log('Contacts read & write permissions granted');
-        fetchContacts();
-      } else {
-        console.log('Permissions denied');
-      }
-    } catch (error) {
-      console.error('Permission error:', error);
-    }
-  };
 
   const fetchContacts = () => {
     CallManager.getAllContacts().then((data) => {
@@ -47,7 +22,6 @@ export default function App() {
     )
   };
   useEffect(() => {
-    requestContactsPermissions();
     CallManager.setDefaultDialer()
     MessageManager.setDefaultMessage().then(data => { console.log("data", data) })
       .catch(error => { console.log("error", error) })
@@ -107,7 +81,7 @@ export default function App() {
   const getVibrationStatus = () => {
     CallManager.getVibrationStatus().then((data) => {
       console.log("data", data)
-    } ).catch((error) => { console.log("error", error) })
+    }).catch((error) => { console.log("error", error) })
   }
 
   const forwardCalls = () => {
@@ -117,53 +91,53 @@ export default function App() {
     }).catch((error) => { console.log("error", error) })
   }
 
-  const getCallReplies = ()=>{
+  const getCallReplies = () => {
     CallManager.getCallReplies().then((data) => {
       console.log("data", data)
     }).catch((error) => { console.log("error", error) })
   }
 
-  const addReplies = ()=>{
-    CallManager.saveCallReplies("heeijhj").then((data) => {  
+  const addReplies = () => {
+    CallManager.saveCallReplies("heeijhj").then((data) => {
       console.log("data", data)
     }
     ).catch((error) => { console.log("error", error) })
   }
 
-  const renderItem = ({ item }: { item: Contact }) => (
-    <TouchableOpacity onPress={() => {
-      item.emailAddresses.push({
-        label: "junk",
-        email: "mrniet+junkmail@test.com",
-      })
-      Contacts.updateContact(item).then((data) => {
-        console.log("data", data)
-      }).catch((error) => {
-        console.log("error", error)
-      })
-    }}>
-      <View style={styles.contactItem}>
-        <Text style={styles.contactName}>{item.displayName}</Text>
-        {item.phoneNumbers.length > 0 && (
-          <Text style={styles.contactNumber}>{item.phoneNumbers[0].number}</Text>
-        )}
-      </View>
-    </TouchableOpacity>
-
-  );
+  const insertContact = () => {
+    const contact: CallManager.Contact = {
+      id: 1,
+      prefix: "Mr.",
+      firstName: "John",
+      middleName: "A.",
+      surname: "Doe",
+      suffix: "Jr.",
+      nickname: "Johnny",
+      photo: null,
+      phoneNumbers: [
+        {
+          value: "+1234567890",
+          type: 2, // Example: 2 = mobile
+          label: "Mobile",
+          normalizedNumber: "+1234567890",
+          isPrimary: true,
+        },
+      ],
+      contactId: 0
+    }
+    CallManager.createNewContact(contact).then((data) => {
+      console.log("data", data)
+    }
+    ).catch((error) => { console.log("error", error) })
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View>
         <Text>Make Default Dialer App</Text>
         {/*<NativeView color="#32a852" style={styles.nativeView} />*/}
-        <Button title="Call Me" onPress={getCallReplies} />
+        <Button title="Call Me" onPress={insertContact} />
         <Button title="Call Me 2" onPress={addReplies} />
-        <FlatList
-          data={contacts}
-          keyExtractor={(item) => item.recordID}
-          renderItem={renderItem}
-        />
       </View>
     </SafeAreaView>
   )
