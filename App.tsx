@@ -11,10 +11,11 @@ interface NativeProps extends ViewProps {
 const { height, width } = Dimensions.get("window")
 
 export default function App() {
+  const [contacts, setContacts] = useState<CallManager.SimpleContact[]>([])
 
   const fetchContacts = () => {
     CallManager.getAllContacts().then((data) => {
-      console.log("data", data)
+      setContacts(data)
     }
     ).catch((error) => {
       console.log("error", error)
@@ -41,6 +42,7 @@ export default function App() {
     CallManager.callEvents.addListener("RejectedCall", (data) => {
       console.log("call data rejected", data)
     })
+    fetchContacts()
     return () => {
       MessageManager.messageEvents.removeAllListeners("onSmsReceived")
       MessageManager.messageEvents.removeAllListeners("onNotificationClick")
@@ -107,9 +109,9 @@ export default function App() {
   const insertContact = () => {
     const contact: CallManager.Contact = {
       id: 1,
-      prefix: "Mr.",
-      firstName: "John",
-      middleName: "A.",
+      prefix: "don",
+      firstName: "banega",
+      middleName: "jon",
       surname: "Doe",
       suffix: "Jr.",
       nickname: "Johnny",
@@ -131,6 +133,44 @@ export default function App() {
     ).catch((error) => { console.log("error", error) })
   };
 
+
+  const updateContact = (id:number,cId:number) => {
+    const contact: CallManager.Contact = {
+      id: id,
+      prefix: "damgea",
+      firstName: "banega",
+      middleName: "jon",
+      surname: "Doe",
+      suffix: "Jr.",
+      nickname: "Johnny",
+      photo: null,
+      phoneNumbers: [
+        {
+          value: "+1234567890",
+          type: 2, // Example: 2 = mobile
+          label: "Mobile",
+          normalizedNumber: "+1234567890",
+          isPrimary: true,
+        },
+      ],
+      contactId: cId
+    }
+    CallManager.updateContact(contact, 4).then((data) => {
+      console.log("data", data)
+    }
+    ).catch((error) => { console.log("error", error) })
+  }
+
+  const renderItem = ({ item }: { item: CallManager.SimpleContact }) => (
+    <TouchableOpacity onPress={() => {
+      updateContact(item.rawId,item.contactId)
+    }}>
+      <View style={styles.contactItem}>
+        <Text style={styles.contactName}>{item.name} {item.rawId} {item.contactId}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View>
@@ -138,6 +178,12 @@ export default function App() {
         {/*<NativeView color="#32a852" style={styles.nativeView} />*/}
         <Button title="Call Me" onPress={insertContact} />
         <Button title="Call Me 2" onPress={addReplies} />
+        <FlatList
+          data={contacts}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.rawId.toString()}
+          contentContainerStyle={styles.container}
+        />
       </View>
     </SafeAreaView>
   )
@@ -145,7 +191,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f5f5f5',

@@ -187,3 +187,18 @@ export async function createNewContact(
 ): Promise<string> {
     return await DialPadHelper.createNewContact(contact);
 }
+/**
+ * Updates an existing contact in the native address book.
+ *
+ * @param {Contact} contact - The contact object to update.
+ * @param {number} photoStatus - The status of the photo (1 for Add, 3 for change, 2 for remove,4 for unchange).
+ * @returns {Promise<string>} A promise that resolves to a success message.
+ * @throws {Error} If the native method fails or permissions are denied.
+ */
+
+export async function updateContact(
+    contact: Contact,
+    photoStatus:number,
+): Promise<string> {
+    return await DialPadHelper.updateContact(contact,photoStatus);
+}
