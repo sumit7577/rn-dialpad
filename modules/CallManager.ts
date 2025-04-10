@@ -202,3 +202,16 @@ export async function updateContact(
 ): Promise<string> {
     return await DialPadHelper.updateContact(contact,photoStatus);
 }
+
+/**
+ * Deletes a contact from the native address book.
+ * 
+ * @param {Contact} contact - The contact object to delete.
+ * @returns {Promise<string>} A promise that resolves to a success message.
+ * @throws {Error} If the native method fails or permissions are denied.
+ * 
+ */
+
+export async function deleteContact(contact:Contact): Promise<string> {
+    return await DialPadHelper.deleteContact(contact);
+}
