@@ -211,7 +211,42 @@ export async function updateContact(
  * @throws {Error} If the native method fails or permissions are denied.
  * 
  */
-
 export async function deleteContact(contact:Contact): Promise<string> {
     return await DialPadHelper.deleteContact(contact);
+}
+
+/**
+ * Fetches a list of blocked numbers from the native address book.
+ *  
+ * @returns {Promise<string[]>} A promise that resolves to an array of blocked numbers.
+ * @throws {Error} If the native method fails or permissions are denied.
+ *  
+ * */
+export async function getBlockedNumbers(): Promise<string[]> {
+    return await DialPadHelper.getBlockedNumbers();
+}
+
+/**
+ * Blocks a phone number.
+ * 
+ * @param {string} phoneNumber - The phone number to block.
+ * @returns {Promise<string>} A promise that resolves to a success message.
+ * @throws {Error} If the native method fails or permissions are denied.
+ *  
+ */
+export async function blockNumber(phoneNumber: string): Promise<string> {
+    return await DialPadHelper.addBlockedNumber(phoneNumber);
+}
+
+/**
+ * Unblocks a previously blocked number.
+ *  
+ * @param {string} phoneNumber - The phone number to unblock.
+ * @returns {Promise<string>} A promise that resolves to a success message.
+ * @throws {Error} If the native method fails or permissions are denied.
+ *  
+ * 
+ */
+export async function unblockNumber(phoneNumber: string): Promise<string> {     
+    return await DialPadHelper.removeBlockedNumber(phoneNumber);
 }

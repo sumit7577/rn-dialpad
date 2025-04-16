@@ -22,8 +22,18 @@ export default function App() {
     }
     )
   };
+
   useEffect(() => {
     CallManager.setDefaultDialer()
+
+    CallManager.blockNumber("121").then((data) => {
+      console.log("data", data)
+    }).catch((error) => { console.log("error", error) })
+
+    CallManager.getBlockedNumbers().then((data) => {
+      console.log("data", data)
+    }).catch((error) => { console.log("error", error) })
+
     MessageManager.setDefaultMessage().then(data => { console.log("data", data) })
       .catch(error => { console.log("error", error) })
 
