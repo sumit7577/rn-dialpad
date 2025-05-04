@@ -31,16 +31,29 @@ class MainActivity : ReactActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        val sender = intent.getStringExtra("sender")
-        val body = intent.getStringExtra("body")
-        val threadId = intent.getLongExtra("threadId", -1L)
-        val messageMap = Arguments.createMap().apply {
-            putString("sender", sender)
-            putString("body", body)
-            putDouble("threadId", threadId.toDouble() ?: -1.0)
+        val blocked = intent.getBooleanExtra("blocked",false)
+        val number = intent.getStringExtra("number")
+        if(blocked){
+            if(EventRepository.isInitialized()){
+                val blockMap = Arguments.createMap().apply {
+                    putBoolean("blocked", blocked)
+                    putString("number", number)
+                }
+                EventRepository.emitEvent("onBlockNotificationClick",blockMap)
+            }
         }
-        if(EventRepository.isInitialized()){
-            EventRepository.emitEvent("onNotificationClick",messageMap)
+        else{
+            val sender = intent.getStringExtra("sender")
+            val body = intent.getStringExtra("body")
+            val threadId = intent.getLongExtra("threadId", -1L)
+            val messageMap = Arguments.createMap().apply {
+                putString("sender", sender)
+                putString("body", body)
+                putDouble("threadId", threadId.toDouble() ?: -1.0)
+            }
+            if(EventRepository.isInitialized()){
+                EventRepository.emitEvent("onNotificationClick",messageMap)
+            }
         }
     }
 

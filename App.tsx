@@ -52,6 +52,11 @@ export default function App() {
     CallManager.callEvents.addListener("RejectedCall", (data) => {
       console.log("call data rejected", data)
     })
+
+    CallManager.callEvents.addListener("onBlockNotificationClick", (data) => {
+      console.log("call data incoming", data)
+    })
+    
     fetchContacts()
     return () => {
       MessageManager.messageEvents.removeAllListeners("onSmsReceived")
