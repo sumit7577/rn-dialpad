@@ -24,9 +24,13 @@ export default function App() {
   };
 
   useEffect(() => {
-    CallManager.setDefaultDialer()
+    CallManager.setDefaultDialer().then((data)=>{
+      console.log("data", data)
+    }).catch((error) => {
+      console.log("error", error)
+    })
 
-    CallManager.blockNumber("121").then((data) => {
+    CallManager.blockNumber("+919503838135").then((data) => {
       console.log("data", data)
     }).catch((error) => { console.log("error", error) })
 

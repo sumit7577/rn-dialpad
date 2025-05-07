@@ -5,6 +5,7 @@ const { DialPadHelper } = NativeModules;
 
 export const callEvents = new NativeEventEmitter(DialPadHelper)
 
+
 /**
  * Native function to set your app to default caller app
  * After User agree to make the app as default dialer your app will able to pick and receive calls
@@ -12,8 +13,9 @@ export const callEvents = new NativeEventEmitter(DialPadHelper)
  * @example
  * CallManager.setDefaultDialer()
  */
-export const setDefaultDialer = () => {
-    return DialPadHelper.requestRole()
+type Accepted = "Accepted" | "Rejected"
+export async function setDefaultDialer():Promise<Accepted|String> {
+    return await DialPadHelper.requestRole()
 }
 
 /**
